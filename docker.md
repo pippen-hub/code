@@ -36,8 +36,10 @@ root         604  0.3  1.1 969256 46788 ?        Ssl  14:48   0:06 /usr/bin/cont
 root        1034  0.1  2.2 1008892 89944 ?       Ssl  14:52   0:03 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
 ```
 - 檢視 Docker 運作資訊 - 執行 Container
+
 > $ docker run --rm -d alpine sleep 120
-> $ ps aux | grep -v grep | grep containerd
+
+>  $ ps aux | grep -v grep | grep containerd
 ```
 root         604  0.3  1.1 969256 46788 ?        Ssl  14:48   0:09 /usr/bin/containerd
 
@@ -60,18 +62,24 @@ REPOSITORY   TAG        IMAGE ID      CREATED          SIZE
 busybox      latest     1c35c4412082  5 days ago       1.22MB
 ```
 - 管理軟體貨櫃 (Container) 主機
-> $ docker run --name b1 -it busybox /bin/sh
-> / # exit
-> $ docker ps -a
+>$ docker run --name b1 -it busybox /bin/sh
+
+>/ # exit
+
+>$ docker ps -a
 ```
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                     PORTS               NAMES
 54ab5a1a4690        busybox             "/bin/sh"           5 minutes ago       Exited (0) 9 seconds ago                       b1
 ```
-> $ docker start b1
-> $ docker exec -it b1 sh      #只能本機連接
-> / # exit
->$ docker stop b1
->$ docker rm b1
+>$docker start b1
+
+>$docker exec -it b1 sh      #只能本機連接
+
+>/#exit
+
+>$docker stop b1
+
+> $docker rm b1
 ## 撰寫Dockerfile
 - 使用ADD讓本機壓縮檔在image裡面自動解壓縮
 ``` 
@@ -93,6 +101,7 @@ CMD ["/bin/bash"
 >$ docker build --no-cache  -t alpine.base base/
 - 執行 alpine.base image 內定命令
 > $ docker run --rm -it alpine.base
+
 > bash-5.0# /bin/busybox1.28 | head -n 1
 ```
 BusyBox v1.28.1 (2018-02-15 14:34:02 CET) multi-call binary.
@@ -106,6 +115,7 @@ BusyBox v1.30.1 (2019-06-12 17:51:55 UTC) multi-call binary.
 httpd: applet not found
 ```
 >bash-5.0# busybox1.28 httpd -h /opt/www
+
 >bash-5.0# curl http://localhost
 ```
 let me go
@@ -135,6 +145,7 @@ CMD ["-D"]
 > $ docker save alpine.plus > alpine.plus.tar
 - 還原 Image
 >$ docker load < alpine.plus.tar
+
 >$ docker history alpine.plus
 - 還原的 image 的目錄架構, 與原先 Image目錄架構一樣
 ```
